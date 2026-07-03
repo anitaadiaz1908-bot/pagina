@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión Académica de Estudiantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark">A·03</span>
+        <div class="brand-text">
+          <h1>Gestión Académica</h1>
+          <p>Registro, cálculo y seguimiento de estudiantes</p>
+        </div>
+      </div>
+      <div class="header-stats" id="headerStats">
+        <div class="stat">
+          <span class="stat-value" id="statTotal">0</span>
+          <span class="stat-label">Registrados</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="statAprobados">0</span>
+          <span class="stat-label">Aprobados</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="statReprobados">0</span>
+          <span class="stat-label">Reprobados</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <!-- PANEL DE FORMULARIO -->
+    <section class="panel form-panel">
+      <div class="panel-head">
+        <h2 id="formTitle">Nuevo estudiante</h2>
+        <span class="eyebrow" id="formMode">MODO · REGISTRO</span>
+      </div>
+
+      <form id="studentForm" novalidate>
+        <input type="hidden" id="editingDocumento" value="">
+
+        <div class="field">
+          <label for="documento">Documento</label>
+          <input type="text" id="documento" inputmode="numeric" placeholder="Ej. 1020304050" autocomplete="off">
+          <span class="error-msg" id="err-documento"></span>
+        </div>
+
+        <div class="field">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" placeholder="Ej. Laura Gómez Pérez" autocomplete="off">
+          <span class="error-msg" id="err-nombre"></span>
+        </div>
+
+        <div class="field">
+          <label for="programa">Programa académico</label>
+          <input type="text" id="programa" placeholder="Ej. Ingeniería de Software" autocomplete="off">
+          <span class="error-msg" id="err-programa"></span>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="nota1">Nota 1</label>
+            <input type="text" id="nota1" inputmode="decimal" placeholder="0.0 - 5.0">
+            <span class="error-msg" id="err-nota1"></span>
+          </div>
+          <div class="field">
+            <label for="nota2">Nota 2</label>
+            <input type="text" id="nota2" inputmode="decimal" placeholder="0.0 - 5.0">
+            <span class="error-msg" id="err-nota2"></span>
+          </div>
+          <div class="field">
+            <label for="nota3">Nota 3</label>
+            <input type="text" id="nota3" inputmode="decimal" placeholder="0.0 - 5.0">
+            <span class="error-msg" id="err-nota3"></span>
+          </div>
+        </div>
+
+        <div class="preview-line" id="previewLine" hidden>
+          <span>Nota definitiva prevista:</span>
+          <strong id="previewNota">—</strong>
+          <span class="badge" id="previewEstado">—</span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">Guardar estudiante</button>
+          <button type="button" class="btn btn-ghost" id="cancelEditBtn" hidden>Cancelar edición</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- PANEL DE LISTADO -->
+    <section class="panel list-panel">
+      <div class="panel-head">
+        <h2>Estudiantes registrados</h2>
+        <div class="search-box">
+          <input type="text" id="searchInput" inputmode="numeric" placeholder="Buscar por documento…" autocomplete="off">
+          <button type="button" class="btn btn-small" id="clearSearchBtn">Limpiar</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="studentsTable">
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Nombre</th>
+              <th>Programa</th>
+              <th>Promedio</th>
+              <th>Estado</th>
+              <th class="th-actions">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- filas generadas dinámicamente -->
+          </tbody>
+        </table>
+
+        <div class="empty-state" id="emptyState">
+          <p>Aún no hay estudiantes registrados.</p>
+          <span>Usa el formulario de la izquierda para agregar el primero.</span>
+        </div>
+
+        <div class="empty-state" id="noResultsState" hidden>
+          <p>Sin coincidencias</p>
+          <span>Ningún estudiante tiene ese número de documento.</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
